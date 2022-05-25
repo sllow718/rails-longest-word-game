@@ -1,0 +1,35 @@
+<div class="container text-center mt-4">
+  <h1>Enter the longest word! 🚀</h1>
+  <div class="d-flex flex-wrap justify-content-center w-80%">
+    <ul class="list-group list-group-horizontal m-4 d-flex flex-wrap flex-grow justify-content-center">
+    <% params[:letters].split(" ").each do |word| %>
+      <li class="shine list-group-item m-2"><%= word.capitalize %></li>
+    <% end %>
+    </ul>
+  </div>
+
+  <div class="m-4">
+    <form action="/score" method="post">
+      <input type="text" name="word" placeholder="Enter the longest word!" value="<%= params[:word] %>">
+      <input type="submit" class="btn btn-primary">
+
+      <%= hidden_field_tag :start_time, params[:start_time] %>
+      <%= hidden_field_tag :end_time, Time.now %>
+      <%= hidden_field_tag :letters, params[:letters] %>
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+    </form>
+  </div>
+
+  <div class="container">
+    <p><%= @output[:message] %></p>
+    <p>Score: <%= @output[:score] %></p>
+    <p>Time elapsed: <%= @output[:time] %></p>
+  </div>
+
+  <a href="/">
+  <button class="btn btn-primary">
+  New game
+  </button>
+  </a>
+</div>
